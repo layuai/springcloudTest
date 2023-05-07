@@ -1,4 +1,4 @@
-package com.ly.userservice.entity;
+package com.ly.userService.entity;
 
 import lombok.Data;
 import lombok.ToString;

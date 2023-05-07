@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        group: userservice
+        group: springcloud
         server-addr: localhost:8848
     loadbalancer:
       cache:
@@ -16,7 +16,7 @@ spring:
         - id: user-service
           uri: lb://userservice   #路由目标地址
           predicates:
-            - Path=/user/**   #路径断言，判断路径是否是以/user开头
+#            - Path=/user/**   #路径断言，判断路径是否是以/user开头
 #            - Before=2017-01-20T17:42:47.789-07:00[America/Denver]
 #      default-filters:  #对所有的路由都生效
 #        - AddRequestHeader=X-Request-red, blue

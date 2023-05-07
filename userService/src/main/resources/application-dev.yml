@@ -1,0 +1,71 @@
+spring:
+  redis:
+    database: 0
+    host:
+    port: 6379
+    password: 123456ly
+    ssl: false
+    timeout: 1000
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#        namespace: acbb9b19-8d79-4362-84ab-318b18bbf982
+        group: springcloud
+  zipkin:
+    enabled: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 40MB
+
+
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: userservice
+    retry-times-when-send-failed: 2
+
+mybatis-plus:
+  global-config:
+    banner: false
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.ly.userservice.**.entity
+  configuration:
+    auto-mapping-unknown-column-behavior: WARNING
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    jdbc-type-for-null: VARCHAR
+
+swagger:
+  enabled: true
+  version: "@project.version@"
+  #  title: ${spring.application.name}
+  #  description: 信贷模块
+  #  base-package: com.dhcc.cms.c5
+  docket:
+    bflw:
+      title: ${spring.application.name}
+      description: 用户模块
+      base-package: com.ly.userservice.controller
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 20000
+        read-timeout: 20000
+logging:
+  level:
+    com.dhcc.cms: debug
+    com.alibaba.nacos.client.naming: error
+
+db:
+  type: oracle
+
+authcenter:
+  tokenurl: http://devwww.tyrz.kfcs:8083/bam-protocol-service/oauth2/getToken
+  userurl: http://devwww.tyrz.kfcs:8083/bam-protocol-service/oauth2/getUserInfo
+  clientid: XDXT
+  clientsecret: 5b4e131ce73146b9af861c478913b9b9
+  key: JLB6L6MJVIT5SDWL
+

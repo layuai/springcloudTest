@@ -11,7 +11,8 @@
 
     <modules>
         <module>gateway</module>
-        <module>userservice</module>
+        <module>userService</module>
+        <module>orderService</module>
     </modules>
 
     <properties>
@@ -43,7 +44,7 @@
     </dependencyManagement>
     <build>
         <plugins>
-            <!-- Add plugins here -->
+            <!-- Add plugins here-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -8,6 +8,6 @@ server:
       max: 1000
 spring:
   application:
-    name: userservice
+    name: user-service
   profiles:
     active: dev

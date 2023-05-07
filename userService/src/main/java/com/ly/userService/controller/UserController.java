@@ -1,8 +1,9 @@
-package com.ly.userservice.controller;
+package com.ly.userService.controller;
 
-import com.ly.userservice.entity.User;
+import com.ly.userService.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023/5/6 18:02
  */
 @RestController
+@RequestMapping("/UserController")
 public class UserController {
     @GetMapping("/user/{id}")
     public User userQuery(@PathVariable("id") String id) {

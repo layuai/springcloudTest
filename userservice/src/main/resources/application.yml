@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  tomcat:
+    max-connections: 10000
+    accept-count: 500
+    processor-cache: 500
+    threads:
+      max: 1000
+spring:
+  application:
+    name: userservice
+  profiles:
+    active: dev

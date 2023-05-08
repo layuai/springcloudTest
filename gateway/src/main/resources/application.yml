@@ -16,9 +16,35 @@ spring:
         - id: user-service
           uri: lb://userservice   #路由目标地址
           predicates:
-#            - Path=/user/**   #路径断言，判断路径是否是以/user开头
-#            - Before=2017-01-20T17:42:47.789-07:00[America/Denver]
-#      default-filters:  #对所有的路由都生效
-#        - AddRequestHeader=X-Request-red, blue
-#          filters:
-#            - AddRequestHeader=X-Request-red, blue
+            #            - Path=/user/**   #路径断言，判断路径是否是以/user开头
+            - Before=2017-01-20T17:42:47.789-07:00[America/Denver]
+          #      default-filters:  #对所有的路由都生效
+          #        - AddRequestHeader=X-Request-red, blue
+          filters:
+            - AddRequestHeader=X-Request-red, blue 1
+      globalcors:   #全局跨域处理
+        add-to-simple-url-handler-mapping: true #解决options请求被拦截问题
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:   #允许哪些网站的跨域请求
+              - "http://localhost:8080"
+              - "http://localhost:8081"
+            allowedMethods:   #允许的跨域Ajax的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*"   #允许在请求中携带的头信息
+            allowCredentials: true  #是否允许懈怠cookie
+            maxAge: 360000  #这次跨域检测的有效期
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 20000
+        read-timeout: 20000
+  httpclient:
+    enabled: true   #开启feign对HTTP client的支持
+    max-connections: 200  #最大的连接数
+    max-connections-per-route: 50   #每个路径的最大连接数

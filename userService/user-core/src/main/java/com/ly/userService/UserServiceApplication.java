@@ -1,4 +1,4 @@
-package com.ly.orderService;
+package com.ly.userService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,14 +6,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author LY
- * @Title: com.ly.orderService
+ * @Title: com.ly.userservice
  * @Description: 描述
- * @date 2023/5/7 18:45
+ * @date 2023/5/6 18:26
  */
 @SpringBootApplication
-@EnableFeignClients
-public class OrderServiceApplication {
+@EnableFeignClients(basePackages = "com.ly.userService")
+public class UserServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class, args);
+        SpringApplication.run(UserServiceApplication.class, args);
     }
 }

@@ -1,16 +1,15 @@
 package com.ly.orderService.controller;
 
-import com.ly.orderService.api.UserControllerApi;
 import com.ly.orderService.entity.Order;
-import com.ly.orderService.entity.User;
-import lombok.extern.log4j.Log4j;
+
+import com.ly.userService.api.UserControllerApi;
+import com.ly.userService.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * @author LY
@@ -20,9 +19,10 @@ import javax.annotation.Resource;
  */
 @RestController
 @Slf4j
+@RequestMapping("/OrderController")
 public class OrderController {
-    @Resource
-    UserControllerApi userControllerApi;
+    @Autowired
+    private UserControllerApi userControllerApi;
 
     @GetMapping("/order/{id}")
     public Order orderQuery(@PathVariable("id") String id) {

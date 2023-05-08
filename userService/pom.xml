@@ -10,6 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>userService</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>userApi</module>
+        <module>user-core</module>
+    </modules>
 
     <dependencies>
         <!-- web-->
@@ -19,26 +24,6 @@
             <version>2.7.5</version>
         </dependency>
 
-        <!-- nacos-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>2.2.5.RELEASE</version>
-            <!--不使用Ribbon 进行客户端负载均衡-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--loadbalancer负载均衡-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-            <version>2.2.5.RELEASE</version>
-        </dependency>
-
         <!-- lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -46,13 +31,6 @@
             <version>1.18.24</version>
         </dependency>
 
-        <!-- jpa-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- openfeign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>

@@ -13,7 +13,7 @@ import java.util.*;
 public interface TbUserService extends IService<TbUser> {
 
     // 查询所有TbUser
-    List<TbUser> findAllTbUsers();
+    List<TbUser> findAllTbUsers(long pageNo, long pageSize);
 
     // 根据id查询TbUser
     TbUser getTbUserById(@PathVariable Long id);

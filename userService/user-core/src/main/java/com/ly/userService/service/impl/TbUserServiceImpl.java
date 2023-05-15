@@ -24,8 +24,8 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser>
 
     // 查询所有TbUser
     @Override
-    public List<TbUser> findAllTbUsers() {
-        Page<TbUser> page = new Page<>(1, 10);
+    public List<TbUser> findAllTbUsers(long pageNo, long pageSize) {
+        Page<TbUser> page = new Page<>(pageNo, pageSize);
         return tbUserMapper.findAllTbUsers(page);
     }
 

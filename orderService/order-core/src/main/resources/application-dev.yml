@@ -9,7 +9,7 @@ spring:
 
   redis:
     database: 0
-    host:
+    host: 127.0.0.1
     port: 6379
     password: 123456ly
     ssl: false
@@ -57,6 +57,18 @@ mybatis-plus:
     jdbc-type-for-null: VARCHAR
     # 配置Mybatis的日志输出级别
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启缓存
+    cache-enabled: true
+    # 缓存默认使用的缓存实现类
+    local-cache-scope: session
+    # 设置flushCache="true"时，是否刷新缓存
+    local-cache-eviction: LRU
+    # 设置缓存大小，0表示无限制
+    local-cache-size: 1024
+    # 开启缓存统计工具
+    local-cache-statistics: true
+    # 指定自定义缓存实现类
+    # local-cache-implementation: com.example.MyCache
 
 swagger:
   enabled: true

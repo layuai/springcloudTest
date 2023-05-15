@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ly.orderService.mapper.TbShopMapper">
+    <cache-ref namespace="com.ly.orderService.mapper.TbShopMapper"/>
 
     <resultMap id="BaseResultMap" type="com.ly.orderService.entity.TbShop">
         <id property="id" column="id" jdbcType="BIGINT"/>

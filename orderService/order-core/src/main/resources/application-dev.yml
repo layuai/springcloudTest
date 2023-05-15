@@ -1,4 +1,12 @@
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/redis?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456ly
+  jpa:
+    show-sql: true
+
   redis:
     database: 0
     host:
@@ -10,14 +18,23 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-#        namespace: acbb9b19-8d79-4362-84ab-318b18bbf982
+        #namespace: acbb9b19-8d79-4362-84ab-318b18bbf982
         group: springcloud
+    #负载均衡
+    loadbalancer:
+      cache:
+        enabled: true
+        caffeine:
+          spec: initialCapacity=500,expireAfterWrite=5s
   zipkin:
     enabled: false
   servlet:
     multipart:
       max-file-size: 20MB
       max-request-size: 40MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 
 rocketmq:
@@ -27,26 +44,38 @@ rocketmq:
     retry-times-when-send-failed: 2
 
 mybatis-plus:
-  global-config:
+  # type-aliases-package: com.ly.**.entity
+  mapper-locations: classpath:/mapper/*.xml   #Mapper XML文件的位置，多个文件用逗号分隔。
+  global-config:  #全局配置
     banner: false
-  mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.ly.orderservice.**.entity
-  configuration:
+    db-config:  #数据库配置
+      id-type: auto   #主键类型，可选值为auto、input、assign、id_worker、uuid、none
+      table-prefix: ly_   #表前缀，生成的SQL语句中表名会添加该前缀
+  configuration:  #MyBatis的配置
+    map-underscore-to-camel-case: true  #是否开启下划线转驼峰命名，可选值为true和false
     auto-mapping-unknown-column-behavior: WARNING
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     jdbc-type-for-null: VARCHAR
+    # 配置Mybatis的日志输出级别
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 swagger:
   enabled: true
   version: "@project.version@"
-  #  title: ${spring.application.name}
-  #  description: 信贷模块
-  #  base-package: com.dhcc.cms.c5
+  #    title: ${spring.application.name}
+  #    description: 信贷模块
+  #    base-package: com.dhcc.cms.c5
   docket:
     bflw:
       title: ${spring.application.name}
       description: 产品模块
-      base-package: com.ly.orderservice.controller
+      base-package: com.ly.**.controller
+
+knife4j:
+  title: 产品模块
+  description: 产品模块接口描述
+  version: 1.0
+  base-package: com.ly.**.controller
+  enable: true
 
 feign:
   client:
@@ -58,14 +87,4 @@ logging:
   level:
     com.dhcc.cms: debug
     com.alibaba.nacos.client.naming: error
-
-db:
-  type: oracle
-
-authcenter:
-  tokenurl: http://devwww.tyrz.kfcs:8083/bam-protocol-service/oauth2/getToken
-  userurl: http://devwww.tyrz.kfcs:8083/bam-protocol-service/oauth2/getUserInfo
-  clientid: XDXT
-  clientsecret: 5b4e131ce73146b9af861c478913b9b9
-  key: JLB6L6MJVIT5SDWL
 

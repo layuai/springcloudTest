@@ -1,0 +1,7 @@
+# SpringCloudTest项目简介
+
+项目包含userService、orderService、gateway模块
+
+其中config对于mybatis分页以及二级缓存进行了配置
+
+网关模块进行了转发

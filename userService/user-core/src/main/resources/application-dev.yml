@@ -16,6 +16,11 @@ spring:
     password: 123456ly
     ssl: false
     timeout: 1000
+    lettuce:
+      pool:
+        max-active: 200
+        max-wait: 10
+        max-idle: 0
   cloud:
     nacos:
       discovery:

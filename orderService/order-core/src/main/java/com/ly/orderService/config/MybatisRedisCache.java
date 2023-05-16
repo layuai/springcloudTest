@@ -1,10 +1,9 @@
-package com.ly.userService.config;
+package com.ly.orderService.config;
 
-import com.ly.userService.common.util.SpringUtil;
+import com.ly.orderService.common.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.Cache;
 import org.springframework.data.redis.connection.RedisServerCommands;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -34,7 +33,6 @@ public class MybatisRedisCache implements Cache {
     private String id;
 
     public MybatisRedisCache() {
-
     }
 
     public MybatisRedisCache(final String id) {
@@ -53,9 +51,10 @@ public class MybatisRedisCache implements Cache {
     public void putObject(Object key, Object value) {
         if (redisTemplate == null) {
             //由于启动期间注入失败，只能运行期间注入，这段代码可以删除
-            redisTemplate = (RedisTemplate<String, Object>) SpringUtil.getBean("redisTemplate");
+            redisTemplate = SpringUtil.getBean("redisTemplate", RedisTemplate.class);
         }
         if (value != null) {
+//            redisTemplate.opsForValue().set(key.toString(), value);
             redisTemplate.opsForValue().set(key.toString(), value);
         }
     }
@@ -64,7 +63,7 @@ public class MybatisRedisCache implements Cache {
     public Object getObject(Object key) {
         if (redisTemplate == null) {
             //由于启动期间注入失败，只能运行期间注入，这段代码可以删除
-            redisTemplate = (RedisTemplate<String, Object>) SpringUtil.getBean("redisTemplate");
+            redisTemplate = SpringUtil.getBean("redisTemplate", RedisTemplate.class);
         }
         try {
             if (key != null) {
@@ -81,7 +80,7 @@ public class MybatisRedisCache implements Cache {
     public Object removeObject(Object key) {
         if (redisTemplate == null) {
             //由于启动期间注入失败，只能运行期间注入，这段代码可以删除
-            redisTemplate = (RedisTemplate<String, Object>) SpringUtil.getBean("redisTemplate");
+            redisTemplate = SpringUtil.getBean("redisTemplate", RedisTemplate.class);
         }
         if (key != null) {
             redisTemplate.delete(key.toString());
@@ -93,9 +92,9 @@ public class MybatisRedisCache implements Cache {
     public void clear() {
         log.debug("清空缓存");
         if (redisTemplate == null) {
-            redisTemplate = (RedisTemplate<String, Object>) SpringUtil.getBean("redisTemplate");
+            redisTemplate = SpringUtil.getBean("redisTemplate", RedisTemplate.class);
         }
-        Set<String> keys = redisTemplate.keys("*:" + this.id + "*");
+        Set keys = redisTemplate.keys("*:" + this.id + "*");
         if (!CollectionUtils.isEmpty(keys)) {
             redisTemplate.delete(keys);
         }
@@ -105,9 +104,10 @@ public class MybatisRedisCache implements Cache {
     public int getSize() {
         if (redisTemplate == null) {
             //由于启动期间注入失败，只能运行期间注入，这段代码可以删除
-            redisTemplate = (RedisTemplate<String, Object>) SpringUtil.getBean("redisTemplate");
+            redisTemplate = SpringUtil.getBean("redisTemplate", RedisTemplate.class);
         }
-        Long size = (Long) redisTemplate.execute((RedisCallback<Long>) RedisServerCommands::dbSize);
+        Long size = (Long) redisTemplate.execute(RedisServerCommands::dbSize);
+        assert size != null;
         return size.intValue();
     }
 

@@ -26,4 +26,9 @@
         <include refid="Base_Column_List"/>
         from tb_user
     </select>
+    <select id="getTbUserById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user where id = #{id}
+    </select>
 </mapper>

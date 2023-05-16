@@ -4,6 +4,7 @@ import com.ly.orderService.common.result.Result;
 import com.ly.orderService.entity.Order;
 
 import com.ly.userService.api.UserControllerApi;
+import com.ly.userService.entity.TbUser;
 import com.ly.userService.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,12 +12,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.websocket.server.PathParam;
+import java.util.List;
 
 /**
  * @author LY
@@ -45,11 +45,18 @@ public class OrderController {
         return Result.success(order);
     }
 
-    @Operation(summary = "用户查询")
+    @Operation(summary = "用户根据id查询")
     @GetMapping("/order/user/{id}")
     public Result<User> userQuery(@PathVariable("id") String id) {
         User user = userControllerApi.userQuery(id);
         log.info(user.toString());
         return Result.success(user);
+    }
+
+    @Operation(summary = "分页查询所有用户")
+    @GetMapping("/user")
+    public Result<List<TbUser>> findAllTbUsers(@RequestParam("pageNo") long pageNo, @RequestParam("pageSize") long pageSize) {
+        List<TbUser> allTbUsers = userControllerApi.findAllTbUsers(pageNo, pageSize);
+        return Result.success(allTbUsers);
     }
 }
